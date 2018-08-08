@@ -1,5 +1,7 @@
 # Actions on Google: Smart Home sample using Node.js
 
+> WORK IN PROGRESS...
+
 This sample contains a fully functioning example of a Smart Home provider
 cloud service designed to work with Actions on Google. This can be used with a
 Actions Console project to create an Action interface to your IoT devices.
@@ -112,7 +114,7 @@ enable it for cloud control.
 1. Navigate back to the [Actions on Google Console](https://console.actions.google.com).
 1. On the left navigation menu under *BUILD*, click on *Actions*. Click on *Add Your First Action* and choose your app's language(s).
 1. Enter the URL for fulfillment, e.g. https://xyz123.ngrok.io/smarthome, click *Done*.
-1. On the left navigation menu under *ADVANCED OPTIONS*, click on *Account Linking*. 
+1. On the left navigation menu under *ADVANCED OPTIONS*, click on *Account Linking*.
 1. Select *No, I only want to allow account creation on my website*. Click *Next*.
 1. For Linking Type, select *OAuth*.
 1. For Grant Type, select 'Authorization Code' for Grant Type.

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "light.kitchen",
+    "type": "action.devices.types.LIGHT",
+    "traits": [
+      "action.devices.traits.OnOff",
+      "action.devices.traits.Brightness",
+      "action.devices.traits.ColorSpectrum",
+      "action.devices.traits.ColorTemperature"
+    ],
+    "name": {
+      "defaultNames": ["mqtt light"],
+      "name": "kitchen light",
+      "nicknames": ["kitchen hues"]
+    },
+    "willReportState": false,
+    "roomHint": "kitchen",
+    "attributes": {
+      "temperatureMinK": 2000,
+      "temperatureMaxK": 6500,
+      "colorModel": "rgb"
+    },
+    "mqtt": {
+      "states": {
+        "on": "lights/status/kitchen/on"
+      },
+      "commands": {
+        "OnOff": "lights/set/kitchen/onoff"
+      }
+    }
+  }
+]

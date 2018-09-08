@@ -1,0 +1,10 @@
+agentUserId: mqtt-home
+clientId: mqtt-home
+clientSecret: put_something_really_secret_here
+googleApiKey: get_this_from_goole
+code: for_hacky_oauth_thing_code
+accessToken: for_hacky_oauth_thing_access
+refreshToken: for_hacky_oauth_thing_refresh
+googleProjectId: get_from_google
+mqttUri: mqtt://localhost
+mqttBaseTopic: mqtthome/

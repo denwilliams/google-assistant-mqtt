@@ -1,0 +1,32 @@
+- id: "light.white"
+  type: "action.devices.types.LIGHT"
+  traits:
+    - "action.devices.traits.OnOff"
+    - "action.devices.traits.Brightness"
+  name:
+    defaultNames:
+      - "light one"
+    name: "my light one"
+    nicknames:
+      - "my number 1 light"
+  willReportState: false
+  roomHint: "my room"
+- id: "light.color"
+  type: "action.devices.types.LIGHT"
+  traits:
+    - "action.devices.traits.OnOff"
+    - "action.devices.traits.Brightness"
+    - "action.devices.traits.ColorSpectrum"
+    - "action.devices.traits.ColorTemperature"
+  name:
+    defaultNames:
+      - "light two"
+    name: "my light two"
+    nicknames:
+      - "my number 2 light"
+  willReportState: false
+  roomHint: "my room"
+  attributes:
+    temperatureMinK: 2000
+    temperatureMaxK: 6500
+    colorModel: "rgb"

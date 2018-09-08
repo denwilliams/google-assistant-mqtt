@@ -14,7 +14,7 @@ Contains a list of devices with their traits.
 
 See `devices.example.yml` for an example.
 
-```
+```yml
 - id: "light.white"
   type: "action.devices.types.LIGHT"
   traits:
@@ -55,7 +55,7 @@ Contains config for the service.
 
 See `config.example.yml` for an example.
 
-```
+```yml
 agentUserId: mqtt-home
 clientId: mqtt-home
 clientSecret: put_something_really_secret_here

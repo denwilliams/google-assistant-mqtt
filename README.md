@@ -1,4 +1,4 @@
-# google-actions-mqtt-smarthome
+# google-assistant-mqtt
 
 Implementation of the Google Actions Smarthome interface for MQTT.
 

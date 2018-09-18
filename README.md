@@ -45,62 +45,62 @@ Contains a list of devices with their traits.
   roomHint: "Master Bedroom"
 ```
 
-### Full Example
+#### More Useful Switch
 
-See `devices.example.yml` for an example.
+You could listen on the automatically fired events to toggle the actual switch.
+Alternatively you can send additional events by setting `mqtt.out`.
+
+- When the `OnOff` command is run an extra event is fired:
+  + Topic: `switches/001/power` Body: `true`
 
 ```yml
-- id: "light.white"
-  type: "action.devices.types.LIGHT"
+- id: "my_switch"
+  type: "action.devices.types.SWITCH"
   traits:
     - "action.devices.traits.OnOff"
-    - "action.devices.traits.Brightness"
   name:
     defaultNames:
-      - "light one"
-    name: "my light one"
+      - "my switch"
+    name: "my switch"
     nicknames:
-      - "my number 1 light"
+      - "my switch"
   willReportState: false
-  roomHint: "my room"
-- id: "light.color"
-  type: "action.devices.types.LIGHT"
-  traits:
-    - "action.devices.traits.OnOff"
-    - "action.devices.traits.Brightness"
-    - "action.devices.traits.ColorSpectrum"
-    - "action.devices.traits.ColorTemperature"
-  name:
-    defaultNames:
-      - "light two"
-    name: "my light two"
-    nicknames:
-      - "my number 2 light"
-  willReportState: false
-  roomHint: "my room"
-  attributes:
-    temperatureMinK: 2000
-    temperatureMaxK: 6500
-    colorModel: "rgb"
-
-# mqtthome/scene.awesome/ActivateScene {"deactivate":false}
-# mqtthome/scene.awesome/ActivateScene/deactivate false
-- id: "scene.awesome"
-  type: "action.devices.types.SCENE"
-  traits:
-    - "action.devices.traits.Scene"
-  name:
-    defaultNames:
-      - "awesome mode"
-      - "awesome scene"
-    name: "awesome scene"
-    nicknames:
-      - "awesome scene"
-  willReportState: false
-  roomHint: "scenes"
-  attributes:
-    sceneReversible: true
+  roomHint: "Master Bedroom"
+  mqtt:
+    out:
+      "OnOff/on": "switches/001/power"
 ```
+
+#### Synchronised State Switch
+
+State is automatically remembered from past commands, but if the device is controlled from elsewhere, like a switch on the wall, we might need to sync state back.
+
+- Assuming when a user physically toggles the switch an event on the `switches/001/power/status` is fired:
+  + The `on` state will be updated to the value in the event.
+
+```yml
+- id: "my_switch"
+  type: "action.devices.types.SWITCH"
+  traits:
+    - "action.devices.traits.OnOff"
+  name:
+    defaultNames:
+      - "my switch"
+    name: "my switch"
+    nicknames:
+      - "my switch"
+  willReportState: false
+  roomHint: "Master Bedroom"
+  mqtt:
+    out:
+      "OnOff/on": "switches/001/power"
+    in:
+      "on": "switches/001/power/status"
+```
+
+### Full Example
+
+See `devices.example.yml` for more examples.
 
 ## config.yml
 

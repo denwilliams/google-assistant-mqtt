@@ -16,6 +16,7 @@ export async function createApp(
     code: string;
     googleProjectId: string;
     googleApiKey: string;
+    mqttBaseTopic: string;
   },
   mqtt: { send: Function },
   logger: any,

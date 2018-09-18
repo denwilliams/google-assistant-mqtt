@@ -30,3 +30,20 @@
     temperatureMinK: 2000
     temperatureMaxK: 6500
     colorModel: "rgb"
+
+# mqtthome/scene.awesome/ActivateScene {"deactivate":false}
+- id: "scene.awesome"
+  type: "action.devices.types.SCENE"
+  traits:
+    - "action.devices.traits.Scene"
+  name:
+    defaultNames:
+      - "awesome mode"
+      - "awesome scene"
+    name: "awesome scene"
+    nicknames:
+      - "awesome scene"
+  willReportState: false
+  roomHint: "scenes"
+  attributes:
+    sceneReversible: true

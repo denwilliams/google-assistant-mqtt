@@ -15,7 +15,7 @@ import {
 import { BuiltinFrameworkMetadata } from "actions-on-google/dist/framework";
 
 export async function createSmarthomeRouter(
-  config: { agentUserId: string; googleApiKey: string },
+  config: { agentUserId: string; googleApiKey: string; mqttBaseTopic: string },
   mqtt: { send: Function },
   logger: any,
   devices: any,
@@ -29,11 +29,17 @@ export async function createSmarthomeRouter(
     // debug: true,
     debug: false,
     key: googleApiKey
-  }); // "AIzaSyAexZw0UcY70IZb8VtALL6OMdYCXxZjukk"
+  });
   // jwt: {} // needed for report state
 
   setTimeout(async () => {
-    await app.requestSync(agentUserId);
+    logger.info("RESYNC REQUESTED");
+    try {
+      await app.requestSync(agentUserId);
+      logger.info("RESYNCED");
+    } catch (err) {
+      console.error(err);
+    }
   }, 10000);
 
   // Register handlers for Smart Home intents
@@ -53,9 +59,12 @@ export async function createSmarthomeRouter(
 
           for (const requestDevice of requestDevices) {
             const { id, customData } = requestDevice;
+            // console.log(requestDevice);
 
             // console.log(devices);
             const device: any = devices.find((x: any) => x.id === id);
+            // console.log(device);
+            const topicMap = (device.mqtt || {}).out || {};
             // const { mqtt: deviceMqtt } = device;
 
             for (const execution of executions) {
@@ -64,10 +73,22 @@ export async function createSmarthomeRouter(
               // this just assumes success
               states = params;
 
-              mqtt.send(
-                `${id}/${command.replace("action.devices.commands.", "")}`,
-                params
+              const shortCommand = command.replace(
+                "action.devices.commands.",
+                ""
               );
+              mqtt.send(`${config.mqttBaseTopic}${id}/${shortCommand}`, params);
+              Object.keys(params).forEach(key => {
+                const eventTopic = `${shortCommand}/${key}`;
+                mqtt.send(
+                  `${config.mqttBaseTopic}${id}/${eventTopic}`,
+                  params[key]
+                );
+                console.log(eventTopic, topicMap);
+                if (topicMap[eventTopic]) {
+                  mqtt.send(topicMap[eventTopic], params[key]);
+                }
+              });
 
               state[id] = Object.assign(state[id], params);
 

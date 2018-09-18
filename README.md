@@ -12,6 +12,41 @@ TODO: OAuth thing is really hacky and not safe to leave running. Project just a 
 
 Contains a list of devices with their traits.
 
+[Refer to Device Types and Device Traits](https://developers.google.com/actions/smarthome/) to construct new devices.
+
+- The device type seems to mostly just change the icon in the app.
+- The device traits provide the commands, attributes and state available on the device.
+- The documentation on device types has a good list of examples and common traits for that type, but you can mix it up as you want.
+- Commands have associated phrases for triggering.
+
+### Examples
+
+#### Basic Switch
+
+- The switch only has 1 trait: `OnOff`.
+- The OnOff also has a command `OnOff` and a boolean state `on`.
+- Turning the switch on/off via Google Assistant will call the `OnOff` command.
+- When the `OnOff` command is run 2 MQTT events are fired:
+  + Topic: `mqtthome/my_switch/OnOff` Body: `{"on":true}`
+  + Topic: `mqtthome/my_switch/OnOff/on` Body: `true`
+
+```yml
+- id: "my_switch"
+  type: "action.devices.types.SWITCH"
+  traits:
+    - "action.devices.traits.OnOff"
+  name:
+    defaultNames:
+      - "my switch"
+    name: "my switch"
+    nicknames:
+      - "my switch"
+  willReportState: false
+  roomHint: "Master Bedroom"
+```
+
+### Full Example
+
 See `devices.example.yml` for an example.
 
 ```yml
@@ -47,6 +82,24 @@ See `devices.example.yml` for an example.
     temperatureMinK: 2000
     temperatureMaxK: 6500
     colorModel: "rgb"
+
+# mqtthome/scene.awesome/ActivateScene {"deactivate":false}
+# mqtthome/scene.awesome/ActivateScene/deactivate false
+- id: "scene.awesome"
+  type: "action.devices.types.SCENE"
+  traits:
+    - "action.devices.traits.Scene"
+  name:
+    defaultNames:
+      - "awesome mode"
+      - "awesome scene"
+    name: "awesome scene"
+    nicknames:
+      - "awesome scene"
+  willReportState: false
+  roomHint: "scenes"
+  attributes:
+    sceneReversible: true
 ```
 
 ## config.yml

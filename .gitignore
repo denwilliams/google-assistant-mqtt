@@ -59,3 +59,4 @@ typings/
 
 config.yml
 devices.yml
+*.js

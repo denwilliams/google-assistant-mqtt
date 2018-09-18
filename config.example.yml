@@ -1,10 +1,27 @@
+# This is supposed to uniquely identify the account in your system.
+# Makes sense for something like Hue cloud, but because you'll be the only user just make something constant.
 agentUserId: mqtt-home
+
+# Make up something for client credentials.
+# You'll have to enter this in Google when setting things up.
 clientId: mqtt-home
 clientSecret: put_something_really_secret_here
-googleApiKey: get_this_from_goole
-code: for_hacky_oauth_thing_code
-accessToken: for_hacky_oauth_thing_access
-refreshToken: for_hacky_oauth_thing_refresh
+
+# This is required to authenticate with Google
 googleProjectId: get_from_google
+# This is required to request a resync
+googleApiKey: get_this_from_goole
+
+# This is required for the OAuth flow.
+# Just put something longish and random here.
+code: for_hacky_oauth_thing_code
+# The hacky OAuth implementation will _always_ return the same access token.
+# (Even when refreshing)
+accessToken: for_hacky_oauth_thing_access
+# The hacky OAuth implementation will _always_ return the same refresh token.
+refreshToken: for_hacky_oauth_thing_refresh
+
+# MQTT target
 mqttUri: mqtt://localhost
+# Automatically published events will be prefixed with this.
 mqttBaseTopic: mqtthome/

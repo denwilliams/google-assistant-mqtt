@@ -84,7 +84,7 @@ export async function createSmarthomeRouter(
                   `${config.mqttBaseTopic}${id}/${eventTopic}`,
                   params[key]
                 );
-                console.log(eventTopic, topicMap);
+                // console.log(eventTopic, topicMap);
                 if (topicMap[eventTopic]) {
                   mqtt.send(topicMap[eventTopic], params[key]);
                 }

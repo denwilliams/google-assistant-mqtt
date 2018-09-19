@@ -8,6 +8,8 @@ You need to create 2 config files. Examples are provided.
 
 TODO: OAuth thing is really hacky and not safe to leave running. Project just a WIP at the moment.
 
+TODO: need to implement `willReportState:true`... believe it will be faster.
+
 ## devices.yml
 
 Contains a list of devices with their traits.

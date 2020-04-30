@@ -1,14 +1,16 @@
 import jsYaml from "js-yaml";
-import { readFileSync } from "fs";
+import { readFile } from "fs";
 import { join } from "path";
+import { promisify } from "util";
+
+const readFileAsync = promisify(readFile);
 
 // import { states } from "./states";
 // import { traitsConfig } from "./traits";
 
-export function loadDevices() {
-  const devices = jsYaml.safeLoad(
-    readFileSync(join(__dirname, "devices.yml"), "utf8")
-  );
+export async function loadDevices() {
+  const contents = await readFileAsync(join(__dirname, "devices.yml"), "utf8");
+  const devices = jsYaml.safeLoad(contents);
 
   // devices.forEach((d: any) => {
   //   const { mqtt, traits } = d;

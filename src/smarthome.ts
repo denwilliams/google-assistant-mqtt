@@ -13,10 +13,11 @@ import {
   SmartHomeV1ExecuteResponseCommands
 } from "actions-on-google";
 import { BuiltinFrameworkMetadata } from "actions-on-google/dist/framework";
+import { Service } from "mqtt-usvc/dist/service";
 
 export async function createSmarthomeRouter(
   config: { agentUserId: string; googleApiKey: string; mqttBaseTopic: string },
-  mqtt: { send: Function },
+  mqtt: Service<unknown>,
   logger: any,
   devices: any,
   state: any
@@ -77,13 +78,10 @@ export async function createSmarthomeRouter(
                 "action.devices.commands.",
                 ""
               );
-              mqtt.send(`${config.mqttBaseTopic}${id}/${shortCommand}`, params);
+              mqtt.send(`~/${id}/${shortCommand}`, params);
               Object.keys(params).forEach(key => {
                 const eventTopic = `${shortCommand}/${key}`;
-                mqtt.send(
-                  `${config.mqttBaseTopic}${id}/${eventTopic}`,
-                  params[key]
-                );
+                mqtt.send(`~/${id}/${eventTopic}`, params[key]);
                 // console.log(eventTopic, topicMap);
                 if (topicMap[eventTopic]) {
                   mqtt.send(topicMap[eventTopic], params[key]);

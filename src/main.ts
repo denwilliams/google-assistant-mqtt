@@ -7,9 +7,9 @@ import { initState } from "./state";
 import { initStateEvents } from "./state-events";
 
 async function main() {
-  const devices = loadDevices();
-  const mqtt = createMqtt(config);
-  const state = initState(devices, config.dataDir);
+  const devices = await loadDevices();
+  const mqtt = await createMqtt(config);
+  const state = await initState(devices, config.dataDir);
 
   initStateEvents(mqtt, state, devices);
   const app = await createApp(config, mqtt, logger, devices, state);

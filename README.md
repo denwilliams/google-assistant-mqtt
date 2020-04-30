@@ -100,6 +100,29 @@ State is automatically remembered from past commands, but if the device is contr
       "on": "switches/001/power/status"
 ```
 
+### Run a Scene
+
+The way Google intends these, I'd probably call them macros. 
+
+```yml
+- id: "scene.sleep"
+  type: "action.devices.types.SCENE"
+  traits:
+    - "action.devices.traits.Scene"
+  name:
+    defaultNames:
+      - "sleep scene"
+      - "sleep mode"
+    name: "sleep scene"
+    nicknames:
+      - "sleep scene"
+      - "sleep mode"
+  willReportState: false
+  roomHint: "Scenes"
+  attributes:
+    sceneReversible: false
+```
+
 ### Full Example
 
 See `devices.example.yml` for more examples.
